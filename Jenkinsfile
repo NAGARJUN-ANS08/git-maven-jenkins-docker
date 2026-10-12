@@ -9,7 +9,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'git-maven-jenkins-docker'
-        PATH + DOCKER = '/usr/local/bin'
     }
 
     stages {
@@ -22,13 +21,15 @@ pipeline {
 
         stage('Check Docker') {
             steps {
-                sh '''
-                    echo "Checking Docker CLI..."
-                    echo "PATH=$PATH"
-                    command -v docker
-                    docker --version
-                    docker info
-                '''
+                withEnv(["PATH+DOCKER=/usr/local/bin:/opt/homebrew/bin:/Applications/Docker.app/Contents/Resources/bin"]) {
+                    sh '''
+                        echo "Checking Docker CLI..."
+                        echo "PATH=$PATH"
+                        command -v docker
+                        docker --version
+                        docker info
+                    '''
+                }
             }
         }
 
@@ -54,13 +55,17 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+                withEnv(["PATH+DOCKER=/usr/local/bin:/opt/homebrew/bin:/Applications/Docker.app/Contents/Resources/bin"]) {
+                    sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+                }
             }
         }
 
         stage('Docker Run/Test') {
             steps {
-                sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER}'
+                withEnv(["PATH+DOCKER=/usr/local/bin:/opt/homebrew/bin:/Applications/Docker.app/Contents/Resources/bin"]) {
+                    sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER}'
+                }
             }
         }
     }
