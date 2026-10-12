@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'git-maven-jenkins-docker' 
-        PATH+DOCKER = /usr/local/bin/docker
+        PATH+DOCKER = '/usr/local/bin/docker'
 
     }
 
