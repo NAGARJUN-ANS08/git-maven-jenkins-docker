@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/YOUR_USERNAME/git-maven-jenkins-docker.git'
+                    url: 'https://github.com/NAGARJUN-ANS08/git-maven-jenkins-docker.git'
             }
         }
 
