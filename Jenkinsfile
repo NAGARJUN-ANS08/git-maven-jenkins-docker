@@ -8,7 +8,9 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'git-maven-jenkins-docker'
+        IMAGE_NAME = 'git-maven-jenkins-docker' 
+        PATH+DOCKER = /usr/local/bin/docker
+
     }
 
     stages {
