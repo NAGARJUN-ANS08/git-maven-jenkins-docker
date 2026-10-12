@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'git-maven-jenkins-docker'
-        PATH+DOCKER = '/usr/local/bin:/opt/homebrew/bin:/Applications/Docker.app/Contents/Resources/bin'
+        PATH+DOCKER = '/usr/local/bin'
     }
 
     stages {
