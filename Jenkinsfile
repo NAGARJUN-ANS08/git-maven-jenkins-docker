@@ -8,9 +8,8 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'git-maven-jenkins-docker' 
-        PATH+DOCKER = '/usr/local/bin'
-
+        IMAGE_NAME = 'git-maven-jenkins-docker'
+        PATH+DOCKER = '/usr/local/bin:/opt/homebrew/bin:/Applications/Docker.app/Contents/Resources/bin'
     }
 
     stages {
@@ -18,6 +17,18 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/NAGARJUN-ANS08/git-maven-jenkins-docker.git'
+            }
+        }
+
+        stage('Check Docker') {
+            steps {
+                sh '''
+                    echo "Checking Docker CLI..."
+                    echo "PATH=$PATH"
+                    command -v docker
+                    docker --version
+                    docker info
+                '''
             }
         }
 
